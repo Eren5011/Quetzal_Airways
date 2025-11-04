@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
-    <!-- Loading screen -->
+    
     <main class="splash" role="main" aria-busy="true" aria-label="Loading screen">
       <header class="qa-header" role="banner">
         <div class="qa-header__inner">
@@ -42,31 +42,30 @@
       </div>
     </main>
 
-    <!-- Main page (initially hidden, shown after loading with fade-in) -->
     <div id="mainPage" class="main-page main-page--hidden">
-      <!-- Header background -->
+
       <div class="bg-[rgba(2,49,10,0.9)]"></div>
       
-      <!-- Logo -->
+ 
       <div class="main-header-logo" data-node-id="2224:1156">
         <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
       </div>
 
-      <!-- Nav Links -->
+   
       <nav class="main-nav">
         <a href="#" class="main-nav-link">Reservar</a>
         <a href="#" class="main-nav-link" id="misViajesLink" onclick="showMisViajes(); return false;">Mis viajes</a>
         <a href="#" class="main-nav-link" onclick="showRastrear(); return false;">Rastrear</a>
       </nav>
 
-      <!-- Right side actions -->
+  
       <div class="main-actions">
         <button class="main-search-btn"></button>
         <div class="main-lang">ES-MXN</div>
         <button class="main-login-btn">Iniciar sesion</button>
       </div>
 
-      <!-- Left side form container -->
+ 
       <div class="left-form-container">
         <h1 class="search-title">Busca tu vuelo</h1>
         
@@ -134,7 +133,6 @@
         <button class="search-btn" onclick="handleFlightSearch()">Buscar vuelo</button>
       </div>
 
-      <!-- Right side with gradient, image and promo -->
       <div class="right-side-container">
         <div class="gradient-overlay"></div>
         
@@ -149,7 +147,6 @@
           beneficios,¡ultima oportunidad!
         </div>
 
-        <!-- Destinations section with green background -->
         <div class="green-bg-section">
           <p class="destinations-title">Increíbles destinos con las mejores promociones</p>
           
@@ -189,8 +186,8 @@
         <!-- Video section -->
         <div class="video-section">
           <video id="quetzalVideo" class="main-video" playsinline autoplay loop>
-            <source src="Video/Quetzal Airways.MOV" type="video/quicktime">
-            <source src="Video/Quetzal Airways.MOV" type="video/mp4">
+            <source src="Video/Quetzal Airways.MP4" type="video/quicktime">
+            <source src="Video/Quetzal Airways.MP4" type="video/mp4">
             Tu navegador no soporta el elemento de video.
           </video>
         </div>
