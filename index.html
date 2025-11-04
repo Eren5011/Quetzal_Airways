@@ -1,0 +1,1000 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quetzal Airways — Inicio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Sansita:wght@400;700&family=Viga:wght@400&family=Sarabun:wght@400&family=Saira+Stencil+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <!-- Loading screen -->
+    <main class="splash" role="main" aria-busy="true" aria-label="Loading screen">
+      <header class="qa-header" role="banner">
+        <div class="qa-header__inner">
+          <img class="qa-logo" src="https://www.figma.com/api/mcp/asset/f65995d2-aaa3-48b7-b5b1-86fb0f9a2af8" alt="Quetzal Airways logo" width="60" height="77">
+          <nav class="qa-nav" aria-label="Primary">
+            <a class="qa-nav__link" href="#">Reservar</a>
+            <a class="qa-nav__link" href="#">Mis viajes</a>
+            <a class="qa-nav__link" href="#">Rastrear</a>
+          </nav>
+          <div class="qa-actions">
+            <button class="qa-search" aria-label="Buscar">
+              <span class="qa-search__icon"></span>
+            </button>
+            <div class="qa-lang">ES-MXN</div>
+            <button class="qa-login">Iniciar sesión</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="hero">
+        <div class="hero__overlay"></div>
+        <img class="hero__image" src="https://www.figma.com/api/mcp/asset/9d45fb8c-c68d-4db7-9472-c7dc6c3fafa7" alt="Airplane wing over clouds">
+        <img class="hero__logo" src="https://www.figma.com/api/mcp/asset/f65995d2-aaa3-48b7-b5b1-86fb0f9a2af8" alt="Quetzal Airways emblem" width="296" height="400">
+      </div>
+
+      <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Loading progress">
+        <div class="progress__bar" id="progressBar"></div>
+        <div class="progress__label" id="progressLabel">0%</div>
+      </div>
+    </main>
+
+    <!-- Main page (initially hidden, shown after loading with fade-in) -->
+    <div id="mainPage" class="main-page main-page--hidden">
+      <!-- Header background -->
+      <div class="bg-[rgba(2,49,10,0.9)]"></div>
+      
+      <!-- Logo -->
+      <div class="main-header-logo" data-node-id="2224:1156">
+        <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
+      </div>
+
+      <!-- Nav Links -->
+      <nav class="main-nav">
+        <a href="#" class="main-nav-link">Reservar</a>
+        <a href="#" class="main-nav-link" id="misViajesLink" onclick="showMisViajes(); return false;">Mis viajes</a>
+        <a href="#" class="main-nav-link" onclick="showRastrear(); return false;">Rastrear</a>
+      </nav>
+
+      <!-- Right side actions -->
+      <div class="main-actions">
+        <button class="main-search-btn"></button>
+        <div class="main-lang">ES-MXN</div>
+        <button class="main-login-btn">Iniciar sesion</button>
+      </div>
+
+      <!-- Left side form container -->
+      <div class="left-form-container">
+        <h1 class="search-title">Busca tu vuelo</h1>
+        
+        <div class="trip-type-buttons">
+          <button class="trip-btn-active" data-trip-type="round">Ida y vuelta</button>
+          <button class="trip-btn" data-trip-type="oneway">Sencillo</button>
+          <button class="trip-btn" data-trip-type="multi">Multidestino</button>
+        </div>
+
+        <div class="form-field">
+          <label>Origen</label>
+          <select id="originSelect" class="custom-select">
+            <option value="CDMX">Ciudad De Mexico (CDMX)</option>
+            <option value="CUN">Cancún (CUN)</option>
+            <option value="MTY">Monterrey (MTY)</option>
+            <option value="GDL">Guadalajara (GDL)</option>
+            <option value="BJX">León (BJX)</option>
+            <option value="TIJ">Tijuana (TIJ)</option>
+            <option value="MEX">México (MEX)</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Destino</label>
+          <select id="destinationSelect" class="custom-select">
+            <option value="">Selecciona un destino</option>
+            <option value="CDMX">Ciudad De Mexico (CDMX)</option>
+            <option value="CUN">Cancún (CUN)</option>
+            <option value="MTY">Monterrey (MTY)</option>
+            <option value="GDL">Guadalajara (GDL)</option>
+            <option value="BJX">León (BJX)</option>
+            <option value="TIJ">Tijuana (TIJ)</option>
+            <option value="MEX">México (MEX)</option>
+          </select>
+        </div>
+
+        <div class="form-field" id="datesField">
+          <label id="datesLabel">Fechas</label>
+          <div class="date-inputs-container" id="datesContainer">
+            <input type="date" id="departureDate" class="date-input" />
+            <span id="returnDateWrapper" style="display: inline-block;">
+              <input type="date" id="returnDate" class="date-input" />
+            </span>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Pasajeros</label>
+          <div class="passenger-selector">
+            <div class="passenger-control">
+              <button type="button" class="passenger-btn" onclick="changePassengers('adults', -1)">-</button>
+              <span id="adultCount" class="passenger-count">1</span>
+              <button type="button" class="passenger-btn" onclick="changePassengers('adults', 1)">+</button>
+              <span class="passenger-label">Adulto(s)</span>
+            </div>
+            <div class="passenger-control">
+              <button type="button" class="passenger-btn" onclick="changePassengers('children', -1)">-</button>
+              <span id="childCount" class="passenger-count">0</span>
+              <button type="button" class="passenger-btn" onclick="changePassengers('children', 1)">+</button>
+              <span class="passenger-label">Niño(s)</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="search-btn" onclick="handleFlightSearch()">Buscar vuelo</button>
+      </div>
+
+      <!-- Right side with gradient, image and promo -->
+      <div class="right-side-container">
+        <div class="gradient-overlay"></div>
+        
+        <div class="hero-image-container">
+          <img src="https://www.figma.com/api/mcp/asset/25e00b1c-48a3-493e-bac4-b88da30e8a7b" alt="Paris">
+        </div>
+
+        <p class="promo-text-1">Presume ese viaje con Quetzal AirWays</p>
+        <div class="promo-text-2">Extendimos el <br>mejor fin</div>
+        <div class="promo-text-3">
+          No te quedes sin aprovechar los mejore<br>
+          beneficios,¡ultima oportunidad!
+        </div>
+
+        <!-- Destinations section with green background -->
+        <div class="green-bg-section">
+          <p class="destinations-title">Increíbles destinos con las mejores promociones</p>
+          
+          <div class="destinations-grid">
+          <!-- Londres card -->
+          <div class="dest-card">
+            <img src="https://www.figma.com/api/mcp/asset/feb4f906-73f2-41d1-8ff1-4b63619e3ca4" alt="Londres">
+            <div class="dest-card-overlay dark"></div>
+            <h3>Londres</h3>
+            <p class="dest-price">$15,864</p>
+            <p class="dest-currency">desde<br>MXN</p>
+            <button>Reservar ahora</button>
+          </div>
+
+          <!-- Paris card -->
+          <div class="dest-card">
+            <img src="https://www.figma.com/api/mcp/asset/25e00b1c-48a3-493e-bac4-b88da30e8a7b" alt="Paris">
+            <div class="dest-card-overlay"></div>
+            <h3>Paris</h3>
+            <p class="dest-price">$17,834</p>
+            <p class="dest-currency">desde<br>MXN</p>
+            <button>Reservar ahora</button>
+          </div>
+
+          <!-- Tokio card -->
+          <div class="dest-card">
+            <img src="https://www.figma.com/api/mcp/asset/17759ffb-2306-49b6-a3ee-83ff8647b43a" alt="Tokio">
+            <div class="dest-card-overlay multiply"></div>
+            <h3>Tokio</h3>
+            <p class="dest-price">$13,538</p>
+            <p class="dest-currency">desde<br>MXN</p>
+            <button>Reservar ahora</button>
+          </div>
+          </div>
+        </div>
+
+        <!-- Video section -->
+        <div class="video-section">
+          <video id="quetzalVideo" class="main-video" playsinline autoplay loop>
+            <source src="Video/Quetzal Airways.MOV" type="video/quicktime">
+            <source src="Video/Quetzal Airways.MOV" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mis Viajes Page (initially hidden) -->
+    <div id="misViajesPage" class="mis-viajes-page mis-viajes-page--hidden">
+      <!-- Same header as main page -->
+      <div class="bg-[rgba(2,49,10,0.9)]"></div>
+      
+      <div class="main-header-logo">
+        <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
+      </div>
+
+      <nav class="main-nav">
+        <a href="#" class="main-nav-link" onclick="showMainPage(); return false;">Reservar</a>
+        <a href="#" class="main-nav-link active-link" id="misViajesLink2">Mis viajes</a>
+        <a href="#" class="main-nav-link">Rastrear</a>
+      </nav>
+
+      <div class="main-actions">
+        <button class="main-search-btn"></button>
+        <div class="main-lang">ES-MXN</div>
+        <button class="main-login-btn" id="misViajesLoginBtn">Iniciar sesion</button>
+      </div>
+
+      <!-- Left side info section -->
+      <div class="mis-viajes-left">
+        <div class="mis-viajes-info">
+          <h2>En esta seccion podras:</h2>
+          <ul>
+            <li>Hacer tu check-in</li>
+            <li>Obtén tu pase de abordar</li>
+            <li>Modificar tu vuelo</li>
+            <li>Realiza cambios o cancelaciones</li>
+            <li>Añadir o consultar tu equipaje</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right side search form -->
+      <div class="mis-viajes-right">
+        <h1 class="mis-viajes-title">Encuentra tu vuelo</h1>
+        
+        <div class="mis-viajes-search">
+          <div class="search-field-group">
+            <label>Reservacion o e-ticket</label>
+            <input type="text" id="bookingCode" placeholder="Ej. AHKLWN" />
+          </div>
+
+          <div class="search-field-group">
+            <label>Apellidos</label>
+            <input type="text" id="surname" placeholder="Ej. perez" />
+          </div>
+
+          <button class="mis-viajes-search-btn" onclick="handleMisViajesSearch()">Buscar</button>
+        </div>
+
+        <!-- Results area -->
+        <div id="misViajesResults" class="mis-viajes-results"></div>
+      </div>
+    </div>
+
+    <!-- Flight Results Page -->
+    <div id="flightResultsPage" class="flight-results-page flight-results-page--hidden">
+      <!-- Top header with logo and navigation -->
+      <div class="results-top-header">
+        <div class="results-top-header__inner">
+          <div class="results-top-logo">
+            <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
+          </div>
+
+          <nav class="results-top-nav">
+            <a href="#" class="results-top-nav-link" onclick="showMainPage(); return false;">Reservar</a>
+            <a href="#" class="results-top-nav-link" id="misViajesLinkResults">Mis viajes</a>
+            <a href="#" class="results-top-nav-link">Rastrear</a>
+          </nav>
+
+          <div class="results-top-actions">
+            <button class="results-top-search-btn"></button>
+            <div class="results-top-lang">ES-MXN</div>
+            <button class="results-top-login-btn" id="resultsLoginBtn">Iniciar sesion</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="flight-results-container">
+        <button class="back-btn" onclick="showMainPage()">
+          <span class="back-arrow">←</span>
+        </button>
+
+        <h1 class="results-title">Resultados</h1>
+        <div class="results-subtitle" id="resultsPassengerInfo">1 Adulto</div>
+
+        <div class="results-filters">
+          <div class="date-selector-container">
+            <div class="date-selector">
+              <button class="date-btn">
+                <span class="date-btn-day">Mar</span>
+                <span class="date-btn-date">15/06</span>
+              </button>
+              <button class="date-btn active">
+                <span class="date-btn-day">Mie</span>
+                <span class="date-btn-date">20/06</span>
+              </button>
+              <button class="date-btn">
+                <span class="date-btn-day">Jue</span>
+                <span class="date-btn-date">25/06</span>
+              </button>
+              <button class="date-btn">
+                <span class="date-btn-day">Sab</span>
+                <span class="date-btn-date">30/06</span>
+              </button>
+            </div>
+          </div>
+          <div class="filter-controls">
+            <div class="filter-btn-container">
+              <button class="filter-btn" id="filterBtn" onclick="toggleFilterMenu()">
+                <span class="filter-icon">⚙</span>
+                <span id="filterText">Filter</span>
+              </button>
+              <div class="filter-menu" id="filterMenu">
+                <div class="filter-menu-item" onclick="applyFilter('all')">
+                  <input type="radio" name="layoverFilter" value="all" id="filterAll" checked>
+                  <label for="filterAll">Todos los vuelos</label>
+                </div>
+                <div class="filter-menu-item" onclick="applyFilter('direct')">
+                  <input type="radio" name="layoverFilter" value="direct" id="filterDirect">
+                  <label for="filterDirect">Vuelos directos</label>
+                </div>
+                <div class="filter-menu-item" onclick="applyFilter('layover')">
+                  <input type="radio" name="layoverFilter" value="layover" id="filterLayover">
+                  <label for="filterLayover">Vuelos con escala</label>
+                </div>
+              </div>
+            </div>
+            <div class="sort-controls-container" id="sortControls">
+              <div class="sort-controls" onclick="toggleSortOrder()">
+                <span id="sortText">Lowest Price</span>
+                <span class="sort-icon" id="sortIcon">▼</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="results-notice">
+          <p>Taxes and others charges included</p>
+        </div>
+
+        <div class="flight-results-list" id="flightResultsList">
+          <!-- Flight results will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Seat Selection Page -->
+    <div id="seatSelectionPage" class="seat-selection-page seat-selection-page--hidden">
+      <!-- Top header with logo and navigation -->
+      <div class="results-top-header">
+        <div class="results-top-header__inner">
+          <div class="results-top-logo">
+            <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
+          </div>
+
+          <nav class="results-top-nav">
+            <a href="#" class="results-top-nav-link" onclick="showMainPage(); return false;">Reservar</a>
+            <a href="#" class="results-top-nav-link" id="misViajesLinkSeats">Mis viajes</a>
+            <a href="#" class="results-top-nav-link">Rastrear</a>
+          </nav>
+
+          <div class="results-top-actions">
+            <button class="results-top-search-btn"></button>
+            <div class="results-top-lang">ES-MXN</div>
+            <button class="results-top-login-btn" id="seatsLoginBtn">Iniciar sesion</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="seat-selection-container">
+        <button class="back-btn" onclick="showFlightResults()">
+          <span class="back-arrow">←</span>
+        </button>
+
+        <h1 class="results-title">Seleccionar Asiento</h1>
+        <div class="results-subtitle" id="seatSelectionPassengerInfo">1 Adulto</div>
+
+        <div class="selected-flight-info" id="selectedFlightInfo">
+          <!-- Selected flight info will be displayed here -->
+        </div>
+
+        <div class="seat-selection-content">
+          <h2 class="seat-selection-title">Selecciona tu clase de asiento</h2>
+          <div class="seat-options-list" id="seatOptionsList">
+            <!-- Seat options will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seat Number Selection Page -->
+    <div id="seatNumberSelectionPage" class="seat-number-selection-page seat-number-selection-page--hidden">
+      <!-- Top header with logo and navigation -->
+      <div class="results-top-header">
+        <div class="results-top-header__inner">
+          <div class="results-top-logo">
+            <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
+          </div>
+
+          <nav class="results-top-nav">
+            <a href="#" class="results-top-nav-link" onclick="showMainPage(); return false;">Reservar</a>
+            <a href="#" class="results-top-nav-link" id="misViajesLinkSeatNumber">Mis viajes</a>
+            <a href="#" class="results-top-nav-link">Rastrear</a>
+          </nav>
+
+          <div class="results-top-actions">
+            <button class="results-top-search-btn"></button>
+            <div class="results-top-lang">ES-MXN</div>
+            <button class="results-top-login-btn" id="seatNumberLoginBtn">Iniciar sesion</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="seat-number-selection-container">
+        <button class="back-btn" onclick="showSeatSelection()">
+          <span class="back-arrow">←</span>
+        </button>
+
+        <h1 class="results-title">Seleccionar Número de Asiento</h1>
+        <div class="results-subtitle" id="seatNumberPassengerInfo">1 Adulto</div>
+
+        <div class="selected-seat-class-info" id="selectedSeatClassInfo">
+          <!-- Selected seat class info will be displayed here -->
+        </div>
+
+        <div class="seat-map-container">
+          <div class="seat-map-info">
+            <div class="seat-map-legend">
+              <div class="legend-item">
+                <div class="legend-seat legend-seat--available"></div>
+                <span>Disponible</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-seat legend-seat--selected"></div>
+                <span>Seleccionado</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-seat legend-seat--occupied"></div>
+                <span>Ocupado</span>
+              </div>
+            </div>
+            <div class="seat-map-status">
+              <span id="selectedSeatsCount">0</span> de <span id="totalSeatsNeeded">1</span> asientos seleccionados
+            </div>
+          </div>
+
+          <div class="aircraft-cabin">
+            <div class="cabin-front">
+              <div class="cabin-front-indicator">↑ Frente del avión</div>
+            </div>
+            <div class="seat-map" id="seatMap">
+              <!-- Seat map will be dynamically generated here -->
+            </div>
+            <div class="cabin-back">
+              <div class="cabin-back-indicator">← Pasillo →</div>
+            </div>
+          </div>
+
+          <div class="seat-selection-actions">
+            <button class="seat-continue-btn" id="continueSeatBtn" onclick="continueFromSeatSelection()" disabled>
+              Continuar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flight Summary Page -->
+    <div id="flightSummaryPage" class="flight-summary-page flight-summary-page--hidden">
+      <!-- Top header with logo and navigation -->
+      <div class="results-top-header">
+        <div class="results-top-header__inner">
+          <div class="results-top-logo">
+            <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
+          </div>
+
+          <nav class="results-top-nav">
+            <a href="#" class="results-top-nav-link" onclick="showMainPage(); return false;">Reservar</a>
+            <a href="#" class="results-top-nav-link" id="misViajesLinkSummary">Mis viajes</a>
+            <a href="#" class="results-top-nav-link">Rastrear</a>
+          </nav>
+
+          <div class="results-top-actions">
+            <button class="results-top-search-btn"></button>
+            <div class="results-top-lang">ES-MXN</div>
+            <button class="results-top-login-btn" id="summaryLoginBtn">Iniciar sesion</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flight-summary-container">
+        <button class="back-btn" onclick="showSeatNumberSelection()">
+          <span class="back-arrow">←</span>
+        </button>
+
+        <h1 class="results-title">Resumen del Vuelo</h1>
+        <div class="results-subtitle" id="summaryPassengerInfo">1 Adulto</div>
+
+        <div class="flight-summary-content">
+          <div class="summary-section">
+            <h2 class="summary-section-title">Información del Vuelo</h2>
+            <div class="summary-flight-info" id="summaryFlightInfo">
+              <!-- Flight info will be displayed here -->
+            </div>
+          </div>
+
+          <div class="summary-section">
+            <h2 class="summary-section-title">Detalles de los Pasajeros</h2>
+            <div class="summary-passenger-details" id="summaryPassengerDetails">
+              <!-- Passenger details will be displayed here -->
+            </div>
+          </div>
+
+          <div class="summary-section">
+            <h2 class="summary-section-title">Asientos Seleccionados</h2>
+            <div class="summary-seats-info" id="summarySeatsInfo">
+              <!-- Seats info will be displayed here -->
+            </div>
+          </div>
+
+          <div class="summary-section summary-pricing">
+            <h2 class="summary-section-title">Resumen de Precios</h2>
+            <div class="summary-pricing-details" id="summaryPricingDetails">
+              <!-- Pricing details will be displayed here -->
+            </div>
+          </div>
+
+          <div class="summary-actions">
+            <button class="summary-continue-btn" id="summaryContinueBtn" onclick="continueFromSummary()">
+              Continuar con el Pago
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Methods Page -->
+    <div id="paymentMethodsPage" class="payment-methods-page payment-methods-page--hidden">
+      <!-- Top header with logo and navigation -->
+      <div class="results-top-header">
+        <div class="results-top-header__inner">
+          <div class="results-top-logo">
+            <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
+          </div>
+
+          <nav class="results-top-nav">
+            <a href="#" class="results-top-nav-link" onclick="showMainPage(); return false;">Reservar</a>
+            <a href="#" class="results-top-nav-link" id="misViajesLinkPayment">Mis viajes</a>
+            <a href="#" class="results-top-nav-link">Rastrear</a>
+          </nav>
+
+          <div class="results-top-actions">
+            <button class="results-top-search-btn"></button>
+            <div class="results-top-lang">ES-MXN</div>
+            <button class="results-top-login-btn" id="paymentLoginBtn">Iniciar sesion</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="payment-methods-container">
+        <button class="back-btn" onclick="showFlightSummary()">
+          <span class="back-arrow">←</span>
+        </button>
+
+        <h1 class="results-title">Método de Pago</h1>
+        <div class="results-subtitle" id="paymentPassengerInfo">1 Adulto</div>
+
+        <div class="payment-summary-info" id="paymentSummaryInfo">
+          <!-- Payment summary will be displayed here -->
+        </div>
+
+        <div class="payment-methods-content">
+          <h2 class="payment-section-title">Selecciona tu método de pago</h2>
+          <div class="payment-methods-list" id="paymentMethodsList">
+            <!-- Payment methods will be dynamically inserted here -->
+          </div>
+        </div>
+
+        <div class="payment-actions">
+          <button class="payment-continue-btn" id="paymentContinueBtn" onclick="continueFromPayment()" disabled>
+            Realizar Pago
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Payment Page -->
+    <div id="cardPaymentPage" class="card-payment-page card-payment-page--hidden">
+      <!-- Top header with logo and navigation -->
+      <div class="results-top-header">
+        <div class="results-top-header__inner">
+          <div class="results-top-logo">
+            <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
+          </div>
+
+          <nav class="results-top-nav">
+            <a href="#" class="results-top-nav-link" onclick="showMainPage(); return false;">Reservar</a>
+            <a href="#" class="results-top-nav-link" id="misViajesLinkCard">Mis viajes</a>
+            <a href="#" class="results-top-nav-link">Rastrear</a>
+          </nav>
+
+          <div class="results-top-actions">
+            <button class="results-top-search-btn"></button>
+            <div class="results-top-lang">ES-MXN</div>
+            <button class="results-top-login-btn" id="cardLoginBtn">Iniciar sesion</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-payment-container">
+        <button class="back-btn" onclick="showPaymentMethods()">
+          <span class="back-arrow">←</span>
+        </button>
+
+        <h1 class="results-title">Información de Tarjeta</h1>
+        <div class="results-subtitle" id="cardPaymentPassengerInfo">1 Adulto</div>
+
+        <div class="payment-summary-info" id="cardPaymentSummaryInfo">
+          <!-- Payment summary will be displayed here -->
+        </div>
+
+        <div class="card-payment-form-container">
+          <form class="card-payment-form" id="cardPaymentForm">
+            <div class="form-group">
+              <label for="cardNumber">Número de Tarjeta</label>
+              <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+            </div>
+
+            <div class="form-group">
+              <label for="cardName">Nombre en la Tarjeta</label>
+              <input type="text" id="cardName" name="cardName" placeholder="JUAN PEREZ GARCIA" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cardExpiry">Fecha de Expiración</label>
+                <input type="text" id="cardExpiry" name="cardExpiry" placeholder="MM/AA" maxlength="5" required>
+              </div>
+              <div class="form-group">
+                <label for="cardCVV">CVV</label>
+                <input type="text" id="cardCVV" name="cardCVV" placeholder="123" maxlength="4" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="saveCard" name="saveCard">
+                <span>Guardar esta tarjeta para futuros pagos</span>
+              </label>
+            </div>
+
+            <div class="card-payment-actions">
+              <button type="submit" class="card-submit-btn">
+                Realizar Pago
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Processing Page -->
+    <div id="paymentProcessingPage" class="payment-processing-page payment-processing-page--hidden">
+      <!-- Top header with logo and navigation -->
+      <div class="results-top-header">
+        <div class="results-top-header__inner">
+          <div class="results-top-logo">
+            <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
+          </div>
+
+          <nav class="results-top-nav">
+            <a href="#" class="results-top-nav-link" onclick="showMainPage(); return false;">Reservar</a>
+            <a href="#" class="results-top-nav-link" id="misViajesLinkProcessing">Mis viajes</a>
+            <a href="#" class="results-top-nav-link">Rastrear</a>
+          </nav>
+
+          <div class="results-top-actions">
+            <button class="results-top-search-btn"></button>
+            <div class="results-top-lang">ES-MXN</div>
+            <button class="results-top-login-btn" id="processingLoginBtn">Iniciar sesion</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="payment-processing-container">
+        <div class="payment-processing-content">
+          <div class="processing-animation" id="processingAnimation">
+            <div class="loading-spinner" id="loadingSpinner">
+              <svg class="spinner-svg" viewBox="0 0 100 100">
+                <circle class="spinner-circle" cx="50" cy="50" r="45"></circle>
+              </svg>
+            </div>
+            <div class="success-checkmark" id="successCheckmark">
+              <svg class="checkmark-svg" viewBox="0 0 100 100">
+                <circle class="checkmark-circle" cx="50" cy="50" r="45"></circle>
+                <polyline class="checkmark-check" points="30,50 45,65 70,35"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="processing-status">
+            <h2 class="processing-status-text" id="processingStatusText">Procesando pago...</h2>
+            <p class="processing-status-subtext" id="processingStatusSubtext">Por favor espera mientras procesamos tu pago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rastrear Page (initially hidden) -->
+    <div id="rastrearPage" class="rastrear-page rastrear-page--hidden">
+      <!-- Same header as main page -->
+      <div class="bg-[rgba(2,49,10,0.9)]"></div>
+      
+      <div class="main-header-logo">
+        <img src="https://www.figma.com/api/mcp/asset/a1e4b40a-4054-4a76-b3c8-79a2615fd598" alt="Logo Aerolinea">
+      </div>
+
+      <nav class="main-nav">
+        <a href="#" class="main-nav-link" onclick="showMainPage(); return false;">Reservar</a>
+        <a href="#" class="main-nav-link" id="misViajesLink3" onclick="showMisViajes(); return false;">Mis viajes</a>
+        <a href="#" class="main-nav-link active-link">Rastrear</a>
+      </nav>
+
+      <div class="main-actions">
+        <button class="main-search-btn"></button>
+        <div class="main-lang">ES-MXN</div>
+        <button class="main-login-btn" id="rastrearLoginBtn">Iniciar sesion</button>
+      </div>
+
+      <!-- Left side info section -->
+      <div class="mis-viajes-left">
+        <div class="mis-viajes-info">
+          <h2>Rastrea tu vuelo</h2>
+          <p>Introduce el número de vuelo o el destino para ver el estado de los vuelos disponibles.</p>
+        </div>
+      </div>
+
+      <!-- Right side search form -->
+      <div class="mis-viajes-right">
+        <h1 class="mis-viajes-title">Buscar vuelo</h1>
+        
+        <!-- Search type selector -->
+        <div class="rastrear-search-type">
+          <button class="rastrear-type-btn-active" data-search-type="destination" onclick="switchRastrearType('destination')">Por destino</button>
+          <button class="rastrear-type-btn" data-search-type="flightNumber" onclick="switchRastrearType('flightNumber')">Por número de vuelo</button>
+        </div>
+
+        <!-- Destination search form -->
+        <div id="destinationSearchForm" class="rastrear-search-form">
+          <div class="search-field-group">
+            <label>Destino</label>
+            <select id="rastrearDestinationSelect" class="custom-select">
+              <option value="">Selecciona un destino</option>
+              <option value="CDMX">Ciudad De Mexico (CDMX)</option>
+              <option value="CUN">Cancún (CUN)</option>
+              <option value="MTY">Monterrey (MTY)</option>
+              <option value="GDL">Guadalajara (GDL)</option>
+              <option value="BJX">León (BJX)</option>
+              <option value="TIJ">Tijuana (TIJ)</option>
+              <option value="MEX">México (MEX)</option>
+              <option value="JFK">Nueva York (JFK)</option>
+              <option value="LAX">Los Ángeles (LAX)</option>
+              <option value="MIA">Miami (MIA)</option>
+              <option value="CDG">París (CDG)</option>
+              <option value="LHR">Londres (LHR)</option>
+            </select>
+          </div>
+          <button class="mis-viajes-search-btn" onclick="handleRastrearSearch()">Buscar</button>
+        </div>
+
+        <!-- Flight number search form -->
+        <div id="flightNumberSearchForm" class="rastrear-search-form rastrear-search-form--hidden">
+          <div class="search-field-group">
+            <label>Número de vuelo</label>
+            <input type="text" id="rastrearFlightNumber" placeholder="Ej. QA-2045" />
+          </div>
+          <button class="mis-viajes-search-btn" onclick="handleRastrearSearch()">Buscar</button>
+        </div>
+
+        <!-- Results container -->
+        <div id="rastrearResults" class="rastrear-results"></div>
+      </div>
+    </div>
+
+    <!-- Payment Confirmation Modal -->
+    <div id="paymentConfirmationModal" class="payment-confirmation-modal payment-confirmation-modal--hidden">
+      <div class="payment-confirmation-content">
+        <div class="confirmation-header">
+          <div class="confirmation-icon">✓</div>
+          <h2 class="confirmation-title">¡Reserva Confirmada!</h2>
+        </div>
+        <div class="confirmation-body">
+          <div class="confirmation-info-item">
+            <span class="confirmation-label">Código de vuelo:</span>
+            <span class="confirmation-value" id="confirmationFlightCode">QW-12345</span>
+          </div>
+          <div class="confirmation-info-item">
+            <span class="confirmation-label">Apellido del pasajero:</span>
+            <span class="confirmation-value" id="confirmationLastName">Pérez</span>
+          </div>
+          <div class="confirmation-total">
+            <span class="confirmation-label">Total pagado:</span>
+            <span class="confirmation-value" id="confirmationTotal">$0.00</span>
+          </div>
+          <p class="confirmation-message">
+            Recibirás un correo electrónico con todos los detalles de tu reserva.
+          </p>
+        </div>
+        <div class="confirmation-actions">
+          <button class="confirmation-ok-btn" onclick="closeConfirmationModal()">
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PayPal Login Modal -->
+    <div id="paypalModal" class="payment-modal payment-modal--hidden">
+      <div class="payment-modal-content">
+        <span class="payment-modal-close" onclick="closePayPalModal()">&times;</span>
+        <div class="paypal-login-container">
+          <div class="paypal-logo">🔷 PayPal</div>
+          <h2 class="paypal-title">Iniciar sesión en PayPal</h2>
+          <form class="paypal-login-form" id="paypalLoginForm">
+            <div class="form-group">
+              <label for="paypalEmail">Correo electrónico o número de teléfono móvil</label>
+              <input type="email" id="paypalEmail" name="paypalEmail" placeholder="correo@ejemplo.com" required>
+            </div>
+            <div class="form-group">
+              <label for="paypalPassword">Contraseña</label>
+              <input type="password" id="paypalPassword" name="paypalPassword" placeholder="Contraseña" required>
+            </div>
+            <button type="submit" class="paypal-login-btn">Iniciar sesión</button>
+            <div class="paypal-options">
+              <label>
+                <input type="checkbox" id="paypalRemember">
+                <span>Mantener sesión iniciada</span>
+              </label>
+              <a href="#" class="paypal-link">¿Olvidaste tu contraseña?</a>
+            </div>
+            <div class="paypal-divider">o</div>
+            <button type="button" class="paypal-signup-btn" onclick="closePayPalModal()">Crear cuenta de PayPal</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login/Register Modal -->
+    <div id="authModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login">Iniciar Sesión</button>
+          <button class="auth-tab" data-tab="register">Registrarse</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" class="auth-form active">
+          <h2>Iniciar Sesión</h2>
+          <div class="form-group">
+            <label for="loginEmail">Correo electrónico</label>
+            <input type="email" id="loginEmail" placeholder="tu@correo.com" required>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Contraseña</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="submit-btn" onclick="handleLogin()">Iniciar Sesión</button>
+          <div class="auth-link">
+            ¿No tienes cuenta? <a href="#" onclick="switchTab('register')">Regístrate</a>
+          </div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="registerForm" class="auth-form">
+          <h2>Crear Cuenta</h2>
+          <div class="form-group">
+            <label for="registerName">Nombre completo</label>
+            <input type="text" id="registerName" placeholder="Juan Pérez" required>
+          </div>
+          <div class="form-group">
+            <label for="registerEmail">Correo electrónico</label>
+            <input type="email" id="registerEmail" placeholder="tu@correo.com" required>
+          </div>
+          <div class="form-group">
+            <label for="registerPhone">Teléfono</label>
+            <input type="tel" id="registerPhone" placeholder="+52 123 456 7890" required>
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">Contraseña</label>
+            <input type="password" id="registerPassword" placeholder="Mínimo 8 caracteres" required>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirmar contraseña</label>
+            <input type="password" id="confirmPassword" placeholder="Repite tu contraseña" required>
+          </div>
+          <button type="submit" class="submit-btn" onclick="handleRegister()">Registrarse</button>
+          <div class="auth-link">
+            ¿Ya tienes cuenta? <a href="#" onclick="switchTab('login')">Inicia sesión</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Profile Modal -->
+    <div id="accountModal" class="modal">
+      <div class="modal-content account-modal-content">
+        <span class="close" onclick="closeAccountModal()">&times;</span>
+        
+        <div class="account-header">
+          <h2>Mi Cuenta</h2>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="account-section">
+          <h3>Información Personal</h3>
+          <div class="account-info">
+            <div class="account-field">
+              <label>Nombre completo</label>
+              <div class="account-value" id="accountName">Juan Pérez</div>
+            </div>
+            <div class="account-field">
+              <label>Correo electrónico</label>
+              <div class="account-value" id="accountEmail">juan@ejemplo.com</div>
+            </div>
+            <div class="account-field">
+              <label>Teléfono</label>
+              <div class="account-value" id="accountPhone">+52 123 456 7890</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Membership Section -->
+        <div class="account-section membership-section">
+          <h3>Membresía Quetzal Airways</h3>
+          <div class="membership-display">
+            <div class="membership-badge" id="membershipBadge">
+              <span class="membership-label">Básico</span>
+            </div>
+            <p class="membership-description" id="membershipDescription">
+              Disfruta de beneficios básicos en todos tus vuelos
+            </p>
+          </div>
+
+          <!-- Membership Plans -->
+          <div class="membership-plans">
+            <h4>Actualiza tu membresía</h4>
+            <div class="plan-options">
+              <div class="plan-card" id="planBasic" onclick="selectPlan('basic')">
+                <div class="plan-header">
+                  <h4>Básico</h4>
+                  <div class="plan-price">Gratis</div>
+                </div>
+                <ul class="plan-features">
+                  <li>✓ Check-in online</li>
+                  <li>✓ Selección básica de asientos</li>
+                  <li>✓ Equipaje de mano incluido</li>
+                </ul>
+              </div>
+
+              <div class="plan-card plan-pro" id="planPro" onclick="selectPlan('pro')">
+                <div class="plan-badge-popular">Popular</div>
+                <div class="plan-header">
+                  <h4>Pro</h4>
+                  <div class="plan-price">$299<span class="plan-period">/mes</span></div>
+                </div>
+                <ul class="plan-features">
+                  <li>✓ Todo lo de Básico</li>
+                  <li>✓ Priority boarding</li>
+                  <li>✓ Selección premium de asientos</li>
+                  <li>✓ Equipaje extra incluido</li>
+                  <li>✓ Acceso a salas VIP</li>
+                  <li>✓ Descuentos exclusivos</li>
+                  <li>✓ Asistencia prioritaria 24/7</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="membership-actions" id="membershipActions" style="display: none;">
+              <button class="upgrade-btn" onclick="upgradeMembership()">Actualizar a Pro</button>
+              <button class="downgrade-btn" onclick="downgradeMembership()">Cambiar a Básico</button>
+              <button class="cancel-subscription-btn" onclick="cancelSubscription()">Cancelar suscripción</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account Actions -->
+        <div class="account-actions">
+          <button class="logout-btn" onclick="handleLogout()">Cerrar Sesión</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
