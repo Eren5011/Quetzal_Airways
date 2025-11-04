@@ -59,6 +59,31 @@
   console.log('Video element found:', video);
 
   let hasStarted = false;
+  let audioEnabled = false;
+
+  // Function to enable audio after user interaction
+  function enableAudio() {
+    if (!audioEnabled && video.muted) {
+      video.muted = false;
+      video.volume = 1.0;
+      audioEnabled = true;
+      console.log('Audio enabled');
+    }
+  }
+
+  // Enable audio on user interaction (click, touch, scroll, etc.)
+  const enableAudioOnInteraction = () => {
+    enableAudio();
+    // Remove listeners after first interaction
+    document.removeEventListener('click', enableAudioOnInteraction);
+    document.removeEventListener('touchstart', enableAudioOnInteraction);
+    document.removeEventListener('scroll', enableAudioOnInteraction);
+  };
+
+  // Add event listeners for user interaction
+  document.addEventListener('click', enableAudioOnInteraction, { once: true });
+  document.addEventListener('touchstart', enableAudioOnInteraction, { once: true });
+  document.addEventListener('scroll', enableAudioOnInteraction, { once: true });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
