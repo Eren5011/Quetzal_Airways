@@ -565,6 +565,45 @@ body {
   object-position: center;
 }
 
+.audio-toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(15, 102, 1, 0.9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Sansita', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.audio-toggle-btn:hover {
+  background: rgba(15, 102, 1, 1);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.audio-toggle-btn.hidden {
+  display: none;
+}
+
+.audio-icon {
+  font-size: 18px;
+}
+
+.audio-text {
+  font-size: 14px;
+}
+
 .destinations-title {
   position: relative;
   font-family: 'Sansita', sans-serif;
@@ -1624,7 +1663,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
+  background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
   z-index: 0;
@@ -2173,7 +2212,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
+  background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
   z-index: 0;
@@ -2418,7 +2457,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
+  background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
   z-index: 0;
@@ -2669,7 +2708,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
+  background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
   z-index: 0;
@@ -2949,7 +2988,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
+  background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
   z-index: 0;
@@ -3189,7 +3228,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
+  background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
   z-index: 0;
@@ -3529,7 +3568,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
+  background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
   z-index: 0;
