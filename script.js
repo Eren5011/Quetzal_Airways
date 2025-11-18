@@ -51,6 +51,8 @@
 // Video auto-play on scroll
 (function() {
   const video = document.getElementById('quetzalVideo');
+  const audioToggleBtn = document.getElementById('audioToggleBtn');
+  
   if (!video) {
     console.log('Video element not found');
     return;
@@ -63,27 +65,54 @@
 
   // Function to enable audio after user interaction
   function enableAudio() {
-    if (!audioEnabled && video.muted) {
-      video.muted = false;
-      video.volume = 1.0;
-      audioEnabled = true;
-      console.log('Audio enabled');
+    if (video && video.muted && !audioEnabled) {
+      try {
+        video.muted = false;
+        video.volume = 1.0;
+        audioEnabled = true;
+        console.log('Audio enabled - muted:', video.muted, 'volume:', video.volume);
+        
+        // Hide the audio toggle button
+        if (audioToggleBtn) {
+          audioToggleBtn.classList.add('hidden');
+        }
+        
+        // Ensure video continues playing after unmuting
+        if (video.paused) {
+          video.play().catch(error => {
+            console.error('Error playing video after unmuting:', error);
+          });
+        }
+      } catch (error) {
+        console.error('Error enabling audio:', error);
+      }
     }
   }
 
-  // Enable audio on user interaction (click, touch, scroll, etc.)
-  const enableAudioOnInteraction = () => {
-    enableAudio();
-    // Remove listeners after first interaction
-    document.removeEventListener('click', enableAudioOnInteraction);
-    document.removeEventListener('touchstart', enableAudioOnInteraction);
-    document.removeEventListener('scroll', enableAudioOnInteraction);
-  };
+  // Setup audio toggle button
+  if (audioToggleBtn) {
+    audioToggleBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      enableAudio();
+    });
+  }
 
-  // Add event listeners for user interaction
-  document.addEventListener('click', enableAudioOnInteraction, { once: true });
-  document.addEventListener('touchstart', enableAudioOnInteraction, { once: true });
-  document.addEventListener('scroll', enableAudioOnInteraction, { once: true });
+  // Enable audio on ANY user interaction
+  const interactionEvents = ['click', 'touchstart', 'keydown', 'mousemove', 'scroll'];
+  
+  interactionEvents.forEach(eventType => {
+    document.addEventListener(eventType, function enableAudioOnInteraction() {
+      enableAudio();
+      // Remove this specific listener after first interaction
+      document.removeEventListener(eventType, enableAudioOnInteraction);
+    }, { once: true, passive: true });
+  });
+
+  // Also enable audio when video is clicked directly
+  video.addEventListener('click', function() {
+    enableAudio();
+  }, { once: true });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -2544,4 +2573,6 @@
       });
 
     })();
+
+
 
