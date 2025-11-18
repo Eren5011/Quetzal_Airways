@@ -65,11 +65,6 @@
 
   // Function to enable audio after user interaction
   function enableAudio() {
-    if (!audioEnabled && video.muted) {
-      video.muted = false;
-      video.volume = 1.0;
-      audioEnabled = true;
-      console.log('Audio enabled');
     if (video && video.muted && !audioEnabled) {
       try {
         video.muted = false;
@@ -94,14 +89,6 @@
     }
   }
 
-  // Enable audio on user interaction (click, touch, scroll, etc.)
-  const enableAudioOnInteraction = () => {
-    enableAudio();
-    // Remove listeners after first interaction
-    document.removeEventListener('click', enableAudioOnInteraction);
-    document.removeEventListener('touchstart', enableAudioOnInteraction);
-    document.removeEventListener('scroll', enableAudioOnInteraction);
-  };
   // Setup audio toggle button
   if (audioToggleBtn) {
     audioToggleBtn.addEventListener('click', function(e) {
@@ -122,10 +109,6 @@
     }, { once: true, passive: true });
   });
 
-  // Add event listeners for user interaction
-  document.addEventListener('click', enableAudioOnInteraction, { once: true });
-  document.addEventListener('touchstart', enableAudioOnInteraction, { once: true });
-  document.addEventListener('scroll', enableAudioOnInteraction, { once: true });
   // Also enable audio when video is clicked directly
   video.addEventListener('click', function() {
     enableAudio();
@@ -210,10 +193,10 @@
     if (accountModal) {
       // Update account info
       updateAccountDisplay();
-
+      
       // Update membership display
       updateMembershipDisplay();
-
+      
       accountModal.classList.add('active');
     }
   };
@@ -230,14 +213,14 @@
     const badge = document.getElementById('membershipBadge');
     const description = document.getElementById('membershipDescription');
     const actions = document.getElementById('membershipActions');
-
+    
     if (!badge || !description) return;
 
     if (userData.membership === 'pro') {
       badge.className = 'membership-badge pro';
       badge.querySelector('.membership-label').textContent = 'Pro';
       description.textContent = 'Disfruta de todos los beneficios premium y servicios exclusivos';
-
+      
       // Show actions if pro
       if (actions) {
         actions.style.display = 'block';
@@ -246,7 +229,7 @@
           <button class="cancel-subscription-btn" onclick="cancelSubscription()">Cancelar suscripción</button>
         `;
       }
-
+      
       // Highlight pro plan
       document.getElementById('planPro').classList.add('selected');
       document.getElementById('planBasic').classList.remove('selected');
@@ -254,7 +237,7 @@
       badge.className = 'membership-badge';
       badge.querySelector('.membership-label').textContent = 'Básico';
       description.textContent = 'Disfruta de beneficios básicos en todos tus vuelos';
-
+      
       // Show actions if basic
       if (actions) {
         actions.style.display = 'block';
@@ -262,7 +245,7 @@
           <button class="upgrade-btn" onclick="upgradeMembership()">Actualizar a Pro</button>
         `;
       }
-
+      
       // Highlight basic plan
       document.getElementById('planBasic').classList.add('selected');
       document.getElementById('planPro').classList.remove('selected');
@@ -273,7 +256,7 @@
     if (plan === userData.membership) {
       return; // Already selected
     }
-
+    
     updateMembershipDisplay();
   };
 
@@ -327,7 +310,7 @@
       if (loginBtn) {
         loginBtn.textContent = 'Iniciar sesion';
       }
-
+      
       const misViajesLoginBtn = document.getElementById('misViajesLoginBtn');
       if (misViajesLoginBtn) {
         misViajesLoginBtn.textContent = 'Iniciar sesion';
@@ -421,17 +404,17 @@
 
     // Simulate login (in real app, this would call an API)
     console.log('Login attempt:', { email, password });
-
+    
     // Store user data (in real app, this would come from API)
     userData.isLoggedIn = true;
     userData.email = email;
     userData.name = email.split('@')[0]; // Temporary, real app would get from API
     userData.phone = '+52 123 456 7890'; // Temporary
     userData.membership = 'basic'; // Default membership
-
+    
     alert('¡Bienvenido de vuelta!');
     modal.classList.remove('active');
-
+    
     // Update login button text
     if (loginBtn) {
       loginBtn.textContent = 'Mi cuenta';
@@ -491,17 +474,17 @@
 
     // Simulate registration (in real app, this would call an API)
     console.log('Registration attempt:', { name, email, phone });
-
+    
     // Store user data (in real app, this would come from API)
     userData.isLoggedIn = true;
     userData.name = name;
     userData.email = email;
     userData.phone = phone;
     userData.membership = 'basic'; // Default membership for new users
-
+    
     alert('¡Cuenta creada exitosamente!');
     modal.classList.remove('active');
-
+    
     // Update login button text
     if (loginBtn) {
       loginBtn.textContent = 'Mi cuenta';
@@ -546,7 +529,7 @@
     if (mainPage && misViajesPage) {
       mainPage.classList.add('main-page--hidden');
       misViajesPage.classList.remove('mis-viajes-page--hidden');
-
+      
       // Reset results
       const results = document.getElementById('misViajesResults');
       if (results) {
@@ -569,48 +552,48 @@
     const cardPaymentPage = document.getElementById('cardPaymentPage');
     const paymentProcessingPage = document.getElementById('paymentProcessingPage');
     const paymentConfirmationModal = document.getElementById('paymentConfirmationModal');
-
+ 
     // Hide all other pages and modals
     if (misViajesPage) {
       misViajesPage.classList.add('mis-viajes-page--hidden');
     }
-
+    
     if (resultsPage) {
       resultsPage.classList.add('flight-results-page--hidden');
     }
-
+    
     if (rastrearPage) {
       rastrearPage.classList.add('rastrear-page--hidden');
     }
-
+    
     if (seatSelectionPage) {
       seatSelectionPage.classList.add('seat-selection-page--hidden');
     }
-
+    
     if (seatNumberSelectionPage) {
       seatNumberSelectionPage.classList.add('seat-number-selection-page--hidden');
     }
-
+    
     if (flightSummaryPage) {
       flightSummaryPage.classList.add('flight-summary-page--hidden');
     }
-
+    
     if (paymentMethodsPage) {
       paymentMethodsPage.classList.add('payment-methods-page--hidden');
     }
-
+    
     if (cardPaymentPage) {
       cardPaymentPage.classList.add('card-payment-page--hidden');
     }
-
+    
     if (paymentProcessingPage) {
       paymentProcessingPage.classList.add('payment-processing-page--hidden');
     }
-
+    
     if (paymentConfirmationModal) {
       paymentConfirmationModal.classList.add('payment-confirmation-modal--hidden');
     }
-
+    
     // Show main page
     if (mainPage) {
       mainPage.classList.remove('main-page--hidden');
@@ -623,20 +606,20 @@
     const mainPage = document.getElementById('mainPage');
     const misViajesPage = document.getElementById('misViajesPage');
     const resultsPage = document.getElementById('flightResultsPage');
-
+    
     // Hide all other pages
     if (mainPage) {
       mainPage.classList.add('main-page--hidden');
     }
-
+    
     if (misViajesPage) {
       misViajesPage.classList.add('mis-viajes-page--hidden');
     }
-
+    
     if (resultsPage) {
       resultsPage.classList.add('flight-results-page--hidden');
     }
-
+    
     // Show rastrear page
     if (rastrearPage) {
       rastrearPage.classList.remove('rastrear-page--hidden');
@@ -657,7 +640,7 @@
     const destinationBtn = document.querySelector('[data-search-type="destination"]');
     const flightNumberBtn = document.querySelector('[data-search-type="flightNumber"]');
     const results = document.getElementById('rastrearResults');
-
+    
     if (type === 'destination') {
       if (destinationForm) destinationForm.classList.remove('rastrear-search-form--hidden');
       if (flightNumberForm) flightNumberForm.classList.add('rastrear-search-form--hidden');
@@ -681,7 +664,7 @@
         destinationBtn.classList.add('rastrear-type-btn');
       }
     }
-
+    
     // Clear results
     if (results) {
       results.innerHTML = '';
@@ -693,14 +676,14 @@
     const destinationForm = document.getElementById('destinationSearchForm');
     const flightNumberForm = document.getElementById('flightNumberSearchForm');
     const results = document.getElementById('rastrearResults');
-
+    
     if (!results) return;
-
+    
     let searchType = 'destination';
     if (destinationForm && destinationForm.classList.contains('rastrear-search-form--hidden')) {
       searchType = 'flightNumber';
     }
-
+    
     if (searchType === 'destination') {
       const destination = document.getElementById('rastrearDestinationSelect')?.value;
       if (!destination) {
@@ -722,10 +705,10 @@
   function searchFlightsByDestination(destination) {
     const results = document.getElementById('rastrearResults');
     if (!results) return;
-
+    
     // Mock flight data
     const mockFlights = getMockFlightsByDestination(destination);
-
+    
     setTimeout(() => {
       if (mockFlights.length > 0) {
         displayRastrearResults(mockFlights);
@@ -739,10 +722,10 @@
   function searchFlightByNumber(flightNumber) {
     const results = document.getElementById('rastrearResults');
     if (!results) return;
-
+    
     // Mock flight data
     const mockFlight = getMockFlightByNumber(flightNumber);
-
+    
     setTimeout(() => {
       if (mockFlight) {
         displayRastrearResults([mockFlight]);
@@ -763,7 +746,7 @@
         { flightNumber: 'QA-3021', origin: 'CDMX', originName: 'Ciudad de México', destination: 'MTY', destinationName: 'Monterrey', departureTime: '10:00', arrivalTime: '11:30', departureDate: new Date(), status: 'on-time', gate: 'C5', terminal: '2', duration: '1h 30m' }
       ]
     };
-
+    
     return destinations[destination] || [];
   }
 
@@ -774,7 +757,7 @@
       'QA-2090': { flightNumber: 'QA-2090', origin: 'CDMX', originName: 'Ciudad de México', destination: 'CUN', destinationName: 'Cancún', departureTime: '14:00', arrivalTime: '16:15', departureDate: new Date(), status: 'delayed', gate: 'B8', terminal: '1', duration: '2h 15m' },
       'QA-3021': { flightNumber: 'QA-3021', origin: 'CDMX', originName: 'Ciudad de México', destination: 'MTY', destinationName: 'Monterrey', departureTime: '10:00', arrivalTime: '11:30', departureDate: new Date(), status: 'on-time', gate: 'C5', terminal: '2', duration: '1h 30m' }
     };
-
+    
     return flights[flightNumber] || null;
   }
 
@@ -782,7 +765,7 @@
   function displayRastrearResults(flights) {
     const results = document.getElementById('rastrearResults');
     if (!results) return;
-
+    
     if (!flights || flights.length === 0) {
       results.innerHTML = `
         <div class="rastrear-no-results">
@@ -791,20 +774,20 @@
       `;
       return;
     }
-
+    
     const formatDate = (dateString) => {
       if (!dateString) return '';
       const date = new Date(dateString);
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return date.toLocaleDateString('es-MX', options);
     };
-
+    
     const statusTexts = {
       'on-time': 'A tiempo',
       'delayed': 'Retrasado',
       'cancelled': 'Cancelado'
     };
-
+    
     results.innerHTML = flights.map(flight => `
       <div class="rastrear-flight-card">
         <div class="rastrear-flight-header">
@@ -861,7 +844,7 @@
 
     // Search in localStorage bookings
     let foundBooking = null;
-
+    
     try {
       const storedBookings = JSON.parse(localStorage.getItem('quetzalBookings') || '[]');
       foundBooking = storedBookings.find(booking => 
@@ -877,14 +860,14 @@
       if (foundBooking) {
         // Show success message with flight details
         results.className = 'mis-viajes-results success';
-
+        
         const formatDate = (dateString) => {
           if (!dateString) return '';
           const date = new Date(dateString);
           const options = { year: 'numeric', month: 'long', day: 'numeric' };
           return date.toLocaleDateString('es-MX', options);
         };
-
+        
         results.innerHTML = `
           <h2>¡Vuelo encontrado!</h2>
           <div class="mis-viajes-flight-details" style="text-align: left; max-width: 600px; margin-top: 20px;">
@@ -992,7 +975,7 @@
 
       // Set up Mis Viajes link in Results page
       const misViajesLinkResults = document.getElementById('misViajesLinkResults');
-
+      
       if (misViajesLinkResults) {
         misViajesLinkResults.addEventListener('click', (e) => {
           e.preventDefault();
@@ -1158,7 +1141,7 @@
 
   // Trip type buttons
   const tripButtons = document.querySelectorAll('[data-trip-type]');
-
+  
   tripButtons.forEach(btn => {
     btn.addEventListener('click', function() {
       // Remove active class from all buttons and add base class
@@ -1169,7 +1152,7 @@
       // Remove base class and add active class to clicked button
       this.classList.remove('trip-btn');
       this.classList.add('trip-btn-active');
-
+      
       currentTripType = this.getAttribute('data-trip-type');
       updateFormBasedOnTripType();
     });
@@ -1234,7 +1217,7 @@
   originSelect.addEventListener('change', function() {
     const selectedOrigin = this.value;
     const options = destinationSelect.querySelectorAll('option');
-
+    
     options.forEach(option => {
       if (option.value === selectedOrigin) {
         option.disabled = true;
@@ -1247,7 +1230,7 @@
   destinationSelect.addEventListener('change', function() {
     const selectedDest = this.value;
     const options = originSelect.querySelectorAll('option');
-
+    
     options.forEach(option => {
       if (option.value === selectedDest) {
         option.disabled = true;
@@ -1298,7 +1281,7 @@
     };
 
     console.log('Flight search:', searchData);
-
+    
         // Generate and display results
         const flights = generateFlightResults(searchData);
         currentFlights = flights;
@@ -1316,17 +1299,17 @@
 
     // Generate 6-8 flight options
     const numFlights = Math.floor(Math.random() * 3) + 6; // 6-8 flights
-
+    
     for (let i = 0; i < numFlights; i++) {
       const departureTime = times[Math.floor(Math.random() * times.length)];
       const arrivalHour = parseInt(departureTime.split(':')[0]) + Math.floor(Math.random() * 3) + 1;
       const arrivalMin = Math.floor(Math.random() * 60);
       const arrivalTime = `${String(arrivalHour).padStart(2, '0')}:${String(arrivalMin).padStart(2, '0')}`;
-
+      
       const hasLayover = layovers[Math.floor(Math.random() * layovers.length)];
       const duration = durations[Math.floor(Math.random() * durations.length)];
       const price = basePrices[Math.floor(Math.random() * basePrices.length)];
-
+      
       flights.push({
         id: `FL${i + 1}`,
         departureTime: departureTime,
@@ -1354,7 +1337,7 @@
         } else if (filter === 'layover') {
           filteredFlights = filteredFlights.filter(flight => flight.hasLayover);
         }
-
+        
         // Sort flights based on current sort order
         const sortedFlights = [...filteredFlights];
         if (sortOrder === 'asc') {
@@ -1364,7 +1347,7 @@
         }
     const resultsPage = document.getElementById('flightResultsPage');
     const mainPage = document.getElementById('mainPage');
-
+    
     if (!resultsPage || !mainPage) return;
 
     // Hide main page and show results page
@@ -1373,7 +1356,7 @@
 
     // Update passenger info
     const passengerInfo = document.querySelector('.results-subtitle');
-
+    
     if (passengerInfo) {
       const passengerText = `${adultCount} ${adultCount === 1 ? 'Adulto' : 'Adultos'}${childCount > 0 ? `, ${childCount} ${childCount === 1 ? 'Niño' : 'Niños'}` : ''}`;
       passengerInfo.textContent = passengerText;
@@ -1388,7 +1371,7 @@
         sortedFlights.forEach(flight => {
       const card = document.createElement('div');
       card.className = 'flight-result-card';
-
+      
       card.innerHTML = `
         <div class="flight-time-info">
           <div class="flight-time">${flight.departureTime}</div>
@@ -1411,28 +1394,28 @@
           <button class="flight-price-btn" onclick="selectFlight('${flight.id}')">Seleccionar</button>
         </div>
       `;
-
+      
       resultsList.appendChild(card);
     });
   }
 
       // Function to select a flight and show seat selection page
       let currentlySelectedFlight = null;
-
+      
       window.selectFlight = function(flightId) {
         console.log('Selected flight:', flightId);
-
+        
         // Find the selected flight from current flights
         const selectedFlight = currentFlights.find(flight => flight.id === flightId);
-
+        
         if (!selectedFlight) {
           alert('Error: No se pudo encontrar la información del vuelo seleccionado.');
           return;
         }
-
+        
         // Store the selected flight globally
         currentlySelectedFlight = selectedFlight;
-
+        
         // Show seat selection page
         showSeatSelectionPage(selectedFlight);
       };
@@ -1441,7 +1424,7 @@
       function showSeatSelectionPage(selectedFlight) {
         const resultsPage = document.getElementById('flightResultsPage');
         const seatSelectionPage = document.getElementById('seatSelectionPage');
-
+        
         if (!resultsPage || !seatSelectionPage) return;
 
         // Hide results page and show seat selection page
@@ -1523,10 +1506,10 @@
         seatClasses.forEach((seatClass, index) => {
           const seatPrice = Math.round(basePrice * seatClass.priceMultiplier);
           const totalPrice = seatPrice * (adultCount + childCount);
-
+          
           const card = document.createElement('div');
           card.className = 'seat-option-card';
-
+          
           card.innerHTML = `
             <div class="seat-option-header">
               <h3 class="seat-class-name">${seatClass.name}</h3>
@@ -1549,24 +1532,24 @@
               </button>
             </div>
           `;
-
+          
           seatOptionsList.appendChild(card);
         });
       }
 
       // Function to select a seat class and show seat number selection page
       let selectedSeatClassData = null;
-
+      
       window.selectSeatClass = function(seatClassId, pricePerPerson, totalPrice) {
         console.log('Selected seat class:', seatClassId, 'Price per person:', pricePerPerson, 'Total:', totalPrice);
-
+        
         // Store selected seat class data
         selectedSeatClassData = {
           classId: seatClassId,
           pricePerPerson: pricePerPerson,
           totalPrice: totalPrice
         };
-
+        
         // Show seat number selection page
         showSeatNumberSelectionPage(selectedSeatClassData);
       };
@@ -1575,7 +1558,7 @@
       function showSeatNumberSelectionPage(seatClassData) {
         const seatSelectionPage = document.getElementById('seatSelectionPage');
         const seatNumberSelectionPage = document.getElementById('seatNumberSelectionPage');
-
+        
         if (!seatSelectionPage || !seatNumberSelectionPage) return;
 
         // Hide seat selection page and show seat number selection page
@@ -1598,7 +1581,7 @@
             'business': 'Business Class',
             'first': 'First Class'
           };
-
+          
           seatClassInfo.innerHTML = `
             <div class="seat-class-info-card">
               <div class="seat-class-info-name">Clase: ${classNames[seatClassData.classId] || seatClassData.classId}</div>
@@ -1619,7 +1602,7 @@
 
       // Generate seat map based on class
       let selectedSeats = [];
-
+      
       function generateSeatMap(seatClassId) {
         const seatMap = document.getElementById('seatMap');
         if (!seatMap) return;
@@ -1639,30 +1622,30 @@
         for (let row = 1; row <= layout.rows; row++) {
           const rowElement = document.createElement('div');
           rowElement.className = 'seat-row';
-
+          
           // Create seat labels (A, B, C, etc.)
           const seatLabels = layout.seatConfig.split(' ');
-
+          
           // Left side seats
           const leftLabels = seatLabels[0].split('');
           leftLabels.forEach(label => {
             const seat = createSeatElement(row, label, seatClassId);
             rowElement.appendChild(seat);
           });
-
+          
           // Row number in the middle
           const rowNumber = document.createElement('div');
           rowNumber.className = 'seat-row-number';
           rowNumber.textContent = row;
           rowElement.appendChild(rowNumber);
-
+          
           // Right side seats
           const rightLabels = seatLabels[1].split('');
           rightLabels.forEach(label => {
             const seat = createSeatElement(row, label, seatClassId);
             rowElement.appendChild(seat);
           });
-
+          
           seatMap.appendChild(rowElement);
         }
 
@@ -1678,7 +1661,7 @@
         seat.dataset.row = row;
         seat.dataset.label = label;
         seat.dataset.seatId = `${row}${label}`;
-
+        
         // Randomly assign some seats as occupied (30% chance)
         const isOccupied = Math.random() < 0.3;
         if (isOccupied) {
@@ -1687,7 +1670,7 @@
           seat.classList.add('seat--available');
           seat.onclick = () => toggleSeatSelection(seat);
         }
-
+        
         seat.textContent = label;
         return seat;
       }
@@ -1698,7 +1681,7 @@
 
         const seatId = seatElement.dataset.seatId;
         const totalNeeded = adultCount + childCount;
-
+        
         if (seatElement.classList.contains('seat--selected')) {
           // Deselect seat
           seatElement.classList.remove('seat--selected');
@@ -1715,7 +1698,7 @@
             return;
           }
         }
-
+        
         updateSeatSelectionUI();
         updateContinueButton();
       }
@@ -1732,7 +1715,7 @@
       function updateContinueButton() {
         const continueBtn = document.getElementById('continueSeatBtn');
         const totalNeeded = adultCount + childCount;
-
+        
         if (continueBtn) {
           if (selectedSeats.length === totalNeeded) {
             continueBtn.disabled = false;
@@ -1748,15 +1731,15 @@
 
       // Continue from seat selection
       let selectedFlightData = null;
-
+      
       window.continueFromSeatSelection = function() {
         const totalNeeded = adultCount + childCount;
-
+        
         if (selectedSeats.length !== totalNeeded) {
           alert(`Por favor selecciona ${totalNeeded} ${totalNeeded === 1 ? 'asiento' : 'asientos'}`);
           return;
         }
-
+        
         // Store selected flight data for summary
         if (currentSearchData && selectedSeatClassData && currentlySelectedFlight) {
           selectedFlightData = {
@@ -1766,7 +1749,7 @@
             selectedSeats: selectedSeats
           };
         }
-
+        
         // Show summary page
         showFlightSummaryPage();
       };
@@ -1775,7 +1758,7 @@
       function showFlightSummaryPage() {
         const seatNumberSelectionPage = document.getElementById('seatNumberSelectionPage');
         const flightSummaryPage = document.getElementById('flightSummaryPage');
-
+        
         if (!seatNumberSelectionPage || !flightSummaryPage) return;
 
         // Hide seat number selection page and show summary page
@@ -1791,13 +1774,13 @@
 
         // Display flight info
         displaySummaryFlightInfo();
-
+        
         // Display passenger details
         displaySummaryPassengerDetails();
-
+        
         // Display seats info
         displaySummarySeatsInfo();
-
+        
         // Display pricing
         displaySummaryPricing();
       }
@@ -1929,7 +1912,7 @@
       // Continue from summary
       window.continueFromSummary = function() {
         console.log('Continuing to payment with data:', selectedFlightData);
-
+        
         // Show payment methods page
         showPaymentMethodsPage();
       };
@@ -1938,7 +1921,7 @@
       function showPaymentMethodsPage() {
         const flightSummaryPage = document.getElementById('flightSummaryPage');
         const paymentMethodsPage = document.getElementById('paymentMethodsPage');
-
+        
         if (!flightSummaryPage || !paymentMethodsPage) return;
 
         // Hide summary page and show payment methods page
@@ -1954,7 +1937,7 @@
 
         // Display payment summary
         displayPaymentSummary();
-
+        
         // Display payment methods
         displayPaymentMethods();
       }
@@ -1990,7 +1973,7 @@
 
       // Display payment methods
       let selectedPaymentMethod = null;
-
+      
       function displayPaymentMethods() {
         const paymentMethodsList = document.getElementById('paymentMethodsList');
         if (!paymentMethodsList) return;
@@ -2032,7 +2015,7 @@
           const card = document.createElement('div');
           card.className = `payment-method-card ${method.popular ? 'payment-method-popular' : ''}`;
           card.dataset.methodId = method.id;
-
+          
           card.innerHTML = `
             <div class="payment-method-header">
               <div class="payment-method-icon">${method.icon}</div>
@@ -2047,7 +2030,7 @@
             </div>
             ${method.popular ? '<div class="payment-method-badge">Popular</div>' : ''}
           `;
-
+          
           card.addEventListener('click', function(e) {
             if (e.target.type !== 'radio' && e.target.tagName !== 'LABEL') {
               const radio = card.querySelector('input[type="radio"]');
@@ -2057,7 +2040,7 @@
               }
             }
           });
-
+          
           paymentMethodsList.appendChild(card);
         });
       }
@@ -2065,7 +2048,7 @@
       // Select payment method
       window.selectPaymentMethod = function(methodId) {
         selectedPaymentMethod = methodId;
-
+        
         // Update visual selection
         const paymentCards = document.querySelectorAll('.payment-method-card');
         paymentCards.forEach(card => {
@@ -2074,7 +2057,7 @@
             card.classList.add('payment-method-selected');
           }
         });
-
+        
         // Enable continue button
         const continueBtn = document.getElementById('paymentContinueBtn');
         if (continueBtn) {
@@ -2090,9 +2073,9 @@
           alert('Por favor selecciona un método de pago');
           return;
         }
-
+        
         console.log('Payment method selected:', selectedPaymentMethod);
-
+        
         // Route based on payment method
         if (selectedPaymentMethod === 'paypal') {
           showPayPalLogin();
@@ -2125,7 +2108,7 @@
       function showCardPaymentPage() {
         const paymentMethodsPage = document.getElementById('paymentMethodsPage');
         const cardPaymentPage = document.getElementById('cardPaymentPage');
-
+        
         if (!paymentMethodsPage || !cardPaymentPage) return;
 
         // Hide payment methods page and show card payment page
@@ -2141,7 +2124,7 @@
 
         // Display payment summary
         displayCardPaymentSummary();
-
+        
         // Set up form handlers
         setupCardPaymentForm();
       }
@@ -2213,7 +2196,7 @@
         // Handle form submission
         cardPaymentForm.addEventListener('submit', function(e) {
           e.preventDefault();
-
+          
           const cardData = {
             cardNumber: cardNumberInput.value.replace(/\s/g, ''),
             cardName: document.getElementById('cardName').value,
@@ -2223,40 +2206,40 @@
           };
 
           console.log('Card payment submitted:', cardData);
-
+          
           // Basic validation - check required fields first
           if (!cardData.cardName || cardData.cardName.trim().length === 0) {
             alert('Por favor ingresa el nombre en la tarjeta');
             return;
           }
-
+          
           if (!cardData.cardExpiry || cardData.cardExpiry.length < 5) {
             alert('Por favor ingresa una fecha de expiración válida');
             return;
           }
-
+          
           if (!cardData.cardCVV || cardData.cardCVV.length < 3) {
             alert('Por favor ingresa un CVV válido');
             return;
           }
-
+          
           // Validate card number - more lenient validation
           const cardNumberClean = cardData.cardNumber.replace(/\s/g, '').replace(/\D/g, '');
-
+          
           if (!cardNumberClean || cardNumberClean.length < 12) {
             alert('Por favor ingresa un número de tarjeta válido (mínimo 12 dígitos)');
             return;
           }
-
+          
           if (cardNumberClean.length > 19) {
             alert('El número de tarjeta no puede tener más de 19 dígitos');
             return;
           }
-
+          
           // Allow the payment to proceed if basic checks pass
           // In production, you would perform proper validation here
           showPaymentProcessingPage();
-
+          
           // Here you would typically send this data to your payment processor
         });
       }
@@ -2265,7 +2248,7 @@
       function showPaymentProcessingPage() {
         const cardPaymentPage = document.getElementById('cardPaymentPage');
         const paymentProcessingPage = document.getElementById('paymentProcessingPage');
-
+        
         if (!cardPaymentPage || !paymentProcessingPage) return;
 
         // Hide card payment page and show processing page
@@ -2277,7 +2260,7 @@
         const successCheckmark = document.getElementById('successCheckmark');
         const statusText = document.getElementById('processingStatusText');
         const statusSubtext = document.getElementById('processingStatusSubtext');
-
+        
         if (loadingSpinner) loadingSpinner.style.display = 'block';
         if (successCheckmark) successCheckmark.style.display = 'none';
         if (statusText) statusText.textContent = 'Procesando pago...';
@@ -2290,7 +2273,7 @@
           if (successCheckmark) successCheckmark.style.display = 'block';
           if (statusText) statusText.textContent = '¡Pago exitoso!';
           if (statusSubtext) statusSubtext.textContent = 'Tu reserva ha sido confirmada';
-
+          
           // After 3 seconds total, show confirmation modal
           setTimeout(() => {
             showPaymentConfirmationModal();
@@ -2301,35 +2284,35 @@
       // Simple card number validation (Luhn algorithm)
       function validateCardNumber(cardNumber) {
         if (!cardNumber) return false;
-
+        
         // Remove spaces and non-digits
         const cleanedNumber = cardNumber.replace(/\s+/g, '').replace(/\D/g, '');
-
+        
         // Check if it's a valid length (13-19 digits)
         if (cleanedNumber.length < 13 || cleanedNumber.length > 19) return false;
-
+        
         // Check if all characters are digits
         if (!/^\d+$/.test(cleanedNumber)) return false;
-
+        
         // Luhn algorithm
         let sum = 0;
         let isEven = false;
-
+        
         // Process from right to left
         for (let i = cleanedNumber.length - 1; i >= 0; i--) {
           let digit = parseInt(cleanedNumber.charAt(i));
-
+          
           if (isEven) {
             digit *= 2;
             if (digit > 9) {
               digit -= 9;
             }
           }
-
+          
           sum += digit;
           isEven = !isEven;
         }
-
+        
         return sum % 10 === 0;
       }
 
@@ -2340,14 +2323,14 @@
 
         // Generate flight code
         const flightCode = generateFlightCode();
-
+        
         // Get last name from card name or generate one
         const cardName = document.getElementById('cardName')?.value || 'Usuario';
         const lastName = extractLastName(cardName);
-
+        
         // Calculate total
         const total = (selectedSeatClassData.totalPrice + Math.round(selectedSeatClassData.totalPrice * 0.16));
-
+        
         // Save booking information to localStorage for "Mis viajes"
         if (currentlySelectedFlight && selectedFlightData && selectedSeatClassData && selectedSeats) {
           const bookingInfo = {
@@ -2378,7 +2361,7 @@
             totalPrice: total,
             bookingDate: new Date().toISOString()
           };
-
+          
           // Save to localStorage
           try {
             const existingBookings = JSON.parse(localStorage.getItem('quetzalBookings') || '[]');
@@ -2388,16 +2371,16 @@
             console.error('Error saving booking:', e);
           }
         }
-
+        
         // Update modal content
         const flightCodeElement = document.getElementById('confirmationFlightCode');
         const lastNameElement = document.getElementById('confirmationLastName');
         const totalElement = document.getElementById('confirmationTotal');
-
+        
         if (flightCodeElement) flightCodeElement.textContent = flightCode;
         if (lastNameElement) lastNameElement.textContent = lastName;
         if (totalElement) totalElement.textContent = `$${total.toLocaleString('es-MX')}.00`;
-
+        
         // Show modal
         modal.classList.remove('payment-confirmation-modal--hidden');
       }
@@ -2414,13 +2397,13 @@
         if (!fullName || fullName.trim().length === 0) {
           return 'Usuario';
         }
-
+        
         const nameParts = fullName.trim().split(/\s+/);
         if (nameParts.length >= 2) {
           // Return the last part as last name
           return nameParts[nameParts.length - 1].toUpperCase();
         }
-
+        
         // If only one name, return it as last name
         return nameParts[0].toUpperCase();
       }
@@ -2431,13 +2414,13 @@
         if (modal) {
           modal.classList.add('payment-confirmation-modal--hidden');
         }
-
+        
         // Hide payment processing page if visible
         const paymentProcessingPage = document.getElementById('paymentProcessingPage');
         if (paymentProcessingPage) {
           paymentProcessingPage.classList.add('payment-processing-page--hidden');
         }
-
+        
         // Return to main page (this will hide all other pages and modals)
         showMainPage();
       };
@@ -2446,7 +2429,7 @@
       window.showPaymentMethods = function() {
         const paymentMethodsPage = document.getElementById('paymentMethodsPage');
         const cardPaymentPage = document.getElementById('cardPaymentPage');
-
+        
         if (paymentMethodsPage) paymentMethodsPage.classList.remove('payment-methods-page--hidden');
         if (cardPaymentPage) cardPaymentPage.classList.add('card-payment-page--hidden');
       };
@@ -2457,20 +2440,20 @@
         if (paypalLoginForm) {
           paypalLoginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-
+            
             const paypalEmail = document.getElementById('paypalEmail').value;
             const paypalPassword = document.getElementById('paypalPassword').value;
-
+            
             console.log('PayPal login attempted:', paypalEmail);
-
+            
             // Close PayPal modal and show processing
             closePayPalModal();
-
+            
             // Show payment processing page for PayPal
             setTimeout(() => {
               showPaymentProcessingPage();
             }, 300);
-
+            
             // Here you would typically redirect to PayPal or process the payment
           });
         }
@@ -2480,7 +2463,7 @@
       window.showFlightSummary = function() {
         const flightSummaryPage = document.getElementById('flightSummaryPage');
         const paymentMethodsPage = document.getElementById('paymentMethodsPage');
-
+        
         if (flightSummaryPage) flightSummaryPage.classList.remove('flight-summary-page--hidden');
         if (paymentMethodsPage) paymentMethodsPage.classList.add('payment-methods-page--hidden');
       };
@@ -2489,7 +2472,7 @@
       window.showSeatNumberSelection = function() {
         const seatNumberSelectionPage = document.getElementById('seatNumberSelectionPage');
         const flightSummaryPage = document.getElementById('flightSummaryPage');
-
+        
         if (seatNumberSelectionPage) seatNumberSelectionPage.classList.remove('seat-number-selection-page--hidden');
         if (flightSummaryPage) flightSummaryPage.classList.add('flight-summary-page--hidden');
       };
@@ -2498,7 +2481,7 @@
       window.showSeatSelection = function() {
         const seatSelectionPage = document.getElementById('seatSelectionPage');
         const seatNumberSelectionPage = document.getElementById('seatNumberSelectionPage');
-
+        
         if (seatSelectionPage) seatSelectionPage.classList.remove('seat-selection-page--hidden');
         if (seatNumberSelectionPage) seatNumberSelectionPage.classList.add('seat-number-selection-page--hidden');
       };
@@ -2507,7 +2490,7 @@
       window.showFlightResults = function() {
         const resultsPage = document.getElementById('flightResultsPage');
         const seatSelectionPage = document.getElementById('seatSelectionPage');
-
+        
         if (resultsPage) resultsPage.classList.remove('flight-results-page--hidden');
         if (seatSelectionPage) seatSelectionPage.classList.add('seat-selection-page--hidden');
       };
@@ -2517,7 +2500,7 @@
         const sortText = document.getElementById('sortText');
         const sortIcon = document.getElementById('sortIcon');
         const sortControls = document.querySelector('.sort-controls');
-
+        
         if (currentSortOrder === 'asc') {
           currentSortOrder = 'desc';
           sortText.textContent = 'Highest Price';
@@ -2529,7 +2512,7 @@
           sortIcon.textContent = '▼';
           sortControls.classList.remove('sort-asc');
         }
-
+        
         // Re-display results with new sort order
         if (currentFlights.length > 0 && currentSearchData) {
           displayFlightResults(currentSearchData, currentFlights, currentSortOrder, currentFilter);
@@ -2552,12 +2535,12 @@
         const filterAll = document.getElementById('filterAll');
         const filterDirect = document.getElementById('filterDirect');
         const filterLayover = document.getElementById('filterLayover');
-
+        
         // Update radio buttons
         if (filterAll) filterAll.checked = filterType === 'all';
         if (filterDirect) filterDirect.checked = filterType === 'direct';
         if (filterLayover) filterLayover.checked = filterType === 'layover';
-
+        
         // Update button text
         if (filterText) {
           if (filterType === 'all') {
@@ -2568,12 +2551,12 @@
             filterText.textContent = 'Con escala';
           }
         }
-
+        
         // Close menu
         if (filterMenu) {
           filterMenu.classList.remove('filter-menu-active');
         }
-
+        
         // Re-display results with new filter
         if (currentFlights.length > 0 && currentSearchData) {
           displayFlightResults(currentSearchData, currentFlights, currentSortOrder, currentFilter);
@@ -2590,5 +2573,6 @@
       });
 
     })();
+
 
 
