@@ -40,21 +40,7 @@ body {
   padding: 0 40px;
   gap: 24px;
 }
-.qa-logo { 
-  display: block; 
-  height: 77px; 
-  width: 60px; 
-  flex-shrink: 0;
-}
-svg.qa-logo { 
-  width: 60px !important; 
-  height: 77px !important; 
-  display: block !important; 
-  visibility: visible !important;
-  opacity: 1 !important;
-  position: relative;
-  z-index: 101;
-}
+.qa-logo { display: block; height: 77px; width: auto; }
 .qa-nav { display: flex; gap: 36px; align-items: center; }
 .qa-nav__link {
   color: #ffffff;
@@ -107,15 +93,6 @@ svg.qa-logo {
   width: 180px; 
   height: auto; 
   z-index: 2; 
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-svg.hero__logo { 
-  width: 100%; 
-  height: auto; 
-  display: block; 
-  visibility: visible !important;
-  opacity: 1 !important;
 }
 
 .progress {
@@ -200,17 +177,10 @@ svg.hero__logo {
   height: 77px;
   z-index: 15;
 }
-.main-header-logo img,
-.main-header-logo svg {
+.main-header-logo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-.main-header-logo svg {
-  object-fit: contain;
-  display: block;
 }
 
 .main-nav {
@@ -1664,7 +1634,7 @@ svg.hero__logo {
   .plan-options {
     grid-template-columns: 1fr;
   }
-  
+
   .account-modal-content {
     max-width: 95%;
   }
@@ -1693,6 +1663,7 @@ svg.hero__logo {
   left: 0;
   width: 100%;
   height: 100vh;
+  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
   background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
@@ -1726,17 +1697,10 @@ svg.hero__logo {
   height: 77px;
 }
 
-.results-top-logo img,
-.results-top-logo svg {
+.results-top-logo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-.results-top-logo svg {
-  object-fit: contain;
-  display: block;
 }
 
 .results-top-nav {
@@ -2249,6 +2213,7 @@ svg.hero__logo {
   left: 0;
   width: 100%;
   height: 100vh;
+  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
   background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
@@ -2494,6 +2459,7 @@ svg.hero__logo {
   left: 0;
   width: 100%;
   height: 100vh;
+  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
   background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
@@ -2745,6 +2711,7 @@ svg.hero__logo {
   left: 0;
   width: 100%;
   height: 100vh;
+  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
   background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
@@ -3025,6 +2992,7 @@ svg.hero__logo {
   left: 0;
   width: 100%;
   height: 100vh;
+  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
   background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
@@ -3265,6 +3233,7 @@ svg.hero__logo {
   left: 0;
   width: 100%;
   height: 100vh;
+  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
   background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
@@ -3605,6 +3574,7 @@ svg.hero__logo {
   left: 0;
   width: 100%;
   height: 100vh;
+  background: url('https://www.figma.com/api/mcp/asset/e86fb225-4977-4402-aedf-e923a325057f') center/cover;
   background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&h=1080&fit=crop') center/cover;
   mix-blend-mode: overlay;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
@@ -3937,4 +3907,3 @@ svg.hero__logo {
   object-fit: contain;
   margin-top: 10px;
 }
-
